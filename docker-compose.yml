@@ -1,0 +1,140 @@
+version: '3.8'
+services:
+  identity-service:
+    networks:
+      - convos
+    build:
+      context: ./IdentityService
+      dockerfile: dockerfile
+      args:
+        - ConnectionString=Server=tcp:sttdbserver.database.windows.net,1433;Initial Catalog=Convos;Persist Security Info=False;User ID=STTDb;Password=Phu0005l5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+        - Redis=redis-service:6379
+    environment:
+      - ConnectionString=Server=tcp:sttdbserver.database.windows.net,1433;Initial Catalog=Convos;Persist Security Info=False;User ID=STTDb;Password=Phu0005l5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - Redis=redis-service:6379
+    ports:
+      - "8081:8080"
+  
+  convos-service:
+    networks:
+      - convos
+    build:
+      context: ./ConvosSQLService
+      dockerfile: dockerfile
+      args:
+        - ConnectionString=Server=tcp:sttdbserver.database.windows.net,1433;Initial Catalog=Convos;Persist Security Info=False;User ID=STTDb;Password=Phu0005l5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+        - Redis=redis-service:6379
+    environment:
+      - ConnectionString=Server=tcp:sttdbserver.database.windows.net,1433;Initial Catalog=Convos;Persist Security Info=False;User ID=STTDb;Password=Phu0005l5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+      - Redis=redis-service:6379
+    ports:
+      - "8080:8080"
+    links:
+      - "redis-service"
+
+  convosnosql-service:
+    networks:
+      - convos
+    build:
+      context: ./ConvosNoSQLService
+      dockerfile: dockerfile
+    environment:
+      - AES_ENCRYPTION_KEY=s1dKjfpa83jVsXqPgoD5bxuzJKT4I2T5k5HyJd3D8gY=
+      - AWS_PROFILE=convos
+    volumes:
+      - ~/.aws:/root/.aws
+    ports:
+      - "8082:8080"
+
+  gateway-service:
+    networks:
+      - convos
+    build:
+      context: ./APIGateway
+      dockerfile: dockerfile
+    ports:
+      - "5000:8000"
+    links:
+      - "identity-service"      
+        
+  redis-service:
+    image: "redis:alpine"
+    networks:
+      - convos    
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/var/lib/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+  otel-collector:
+    image: otel/opentelemetry-collector:0.95.0
+    command: ["--config=/etc/otel-collector-config.yml"]
+    volumes:
+      - ./config/otel-collector-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "4317:4317"
+    networks:
+      - convos
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - convos
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - convos
+      
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      - type: bind
+        source: /
+        target: /rootfs
+        read_only: true
+        bind:
+          propagation: rslave
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - convos
+  
+networks:
+  convos:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local

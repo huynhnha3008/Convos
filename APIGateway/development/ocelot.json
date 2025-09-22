@@ -1,0 +1,431 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/servers/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/servers/{params}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/servers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/servers",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/categories",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/categories/{params}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/permissions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/permissions",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/permissions/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/permissions/{params}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/channels",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channels",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/channels/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channels/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/channel-role-permissions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channel-role-permissions",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/channel-role-permissions/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channel-role-permissions/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/invites",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/invites",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/invites/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/invites/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/roles",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/roles",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/roles/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/roles/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5112
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5112
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/{params}",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/friendships",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/friendships",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/friendships/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/friendships/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/channel-messages",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5071
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channel-messages",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/channel-messages/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5071
+        }
+      ],
+      "UpstreamPathTemplate": "/api/channel-messages/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/soundboards",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/soundboards",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/soundboards/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/soundboards/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ]
+    },
+        {
+          "DownstreamPathTemplate": "/api/emojis",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/emojis",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+        {
+          "DownstreamPathTemplate": "/api/emojis/{params}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/emojis/{params}",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+     {
+      "DownstreamPathTemplate": "/api/emojisql",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/emojisql",
+      "UpstreamHttpMethod": [ "GET", "DELETE",  "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/emojisql/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5240
+        }
+      ],
+      "UpstreamPathTemplate": "/api/emojisql/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+        {
+          "DownstreamPathTemplate": "/api/messages",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/messages",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+        {
+          "DownstreamPathTemplate": "/api/messages/{params}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/messages/{params}",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+        {
+          "DownstreamPathTemplate": "/api/private-call-sessions",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/private-call-sessions",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+        {
+          "DownstreamPathTemplate": "/api/private-call-sessions/{params}",
+          "DownstreamScheme": "http",
+          "DownstreamHostAndPorts": [
+            {
+              "Host": "localhost",
+              "Port": 5071
+            }
+          ],
+          "UpstreamPathTemplate": "/api/private-call-sessions/{params}",
+          "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+          "IsWebSocket": true
+        },
+    {
+      "DownstreamPathTemplate": "/api/private-messages",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5071
+        }
+      ],
+      "UpstreamPathTemplate": "/api/private-messages",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/private-messages/{params}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5071
+        }
+      ],
+      "UpstreamPathTemplate": "/api/private-messages/{params}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PATCH", "POST", "PUT" ],
+      "IsWebSocket": true
+    }
+  ],
+  "GlobalConfiguration": {
+  }
+}

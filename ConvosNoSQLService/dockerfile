@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-jammy-amd64 AS base
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 8080
+EXPOSE 80
+ARG AES_ENCRYPTION_KEY
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy-amd64 AS build
+WORKDIR /src
+RUN mkdir app
+
+COPY . /src/app
+RUN dotnet restore "/src/app/ConvosNoSQLWebApi/ConvosNoSQLWebApi.csproj"
+
+WORKDIR /src/app/ConvosNoSQLWebApi
+RUN dotnet build "ConvosNoSQLWebApi.csproj" --configuration Release --runtime linux-x64 -o ./build
+
+FROM build as publish
+WORKDIR /src/app/ConvosNoSQLWebApi
+RUN dotnet publish "ConvosNoSQLWebApi.csproj" -c Release -o /app/out
+
+FROM base AS final
+COPY --from=publish /app/out .
+	
+ENTRYPOINT ["dotnet", "ConvosNoSQLWebApi.dll"]

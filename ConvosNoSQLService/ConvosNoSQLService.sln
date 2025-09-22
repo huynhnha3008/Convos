@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvosNoSQLWebApi", "ConvosNoSQLWebApi\ConvosNoSQLWebApi.csproj", "{F16DBBE5-79BC-4D0F-BA85-8910B950F760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{B5C7EA6E-CFA9-4331-B1CC-88868B3364C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{183B87BE-63A0-40E5-9C14-4D19B4485968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{A28220DE-DB49-4B7E-96F5-2367F73FEB6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F16DBBE5-79BC-4D0F-BA85-8910B950F760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F16DBBE5-79BC-4D0F-BA85-8910B950F760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F16DBBE5-79BC-4D0F-BA85-8910B950F760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F16DBBE5-79BC-4D0F-BA85-8910B950F760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C7EA6E-CFA9-4331-B1CC-88868B3364C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C7EA6E-CFA9-4331-B1CC-88868B3364C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C7EA6E-CFA9-4331-B1CC-88868B3364C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C7EA6E-CFA9-4331-B1CC-88868B3364C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{183B87BE-63A0-40E5-9C14-4D19B4485968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183B87BE-63A0-40E5-9C14-4D19B4485968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183B87BE-63A0-40E5-9C14-4D19B4485968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183B87BE-63A0-40E5-9C14-4D19B4485968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A28220DE-DB49-4B7E-96F5-2367F73FEB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A28220DE-DB49-4B7E-96F5-2367F73FEB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A28220DE-DB49-4B7E-96F5-2367F73FEB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A28220DE-DB49-4B7E-96F5-2367F73FEB6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

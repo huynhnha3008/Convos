@@ -1,0 +1,12 @@
+﻿{
+  "Routes":[
+    "/api/users/renew-token",
+    "/api/users/login",
+    "/api/users/register",
+    "/api/users/phone",
+    "/api/users/email",
+    "/api/users/verify-otpEmail",
+    "/api/users/verify-otpPhoneNumber",
+    "/api/users/google-login"
+  ]
+}

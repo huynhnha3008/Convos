@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-jammy-amd64 AS base
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 8000
+EXPOSE 8080
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy-amd64 AS build
+WORKDIR /src
+RUN mkdir APIGateway
+
+COPY . /src/APIGateway
+RUN dotnet restore "/src/APIGateway/APIGateway.csproj"
+
+WORKDIR /src/APIGateway
+RUN dotnet build "APIGateway.csproj" --configuration Release --runtime linux-x64 -o ./build
+
+FROM build as publish
+WORKDIR /src/APIGateway
+RUN dotnet publish "APIGateway.csproj" -c Release -o /app/out
+
+FROM base AS final
+COPY --from=publish /app/out .
+	
+ENTRYPOINT ["dotnet", "APIGateway.dll"]

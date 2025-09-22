@@ -1,0 +1,169 @@
+name: .NET and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Cache .NET packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: ConvosSQLService restore dependencies
+      run: |
+        cd ConvosSQLService
+        dotnet restore
+    
+    - name: ConvosSQLService build
+      run: |
+        cd ConvosSQLService
+        dotnet build --no-restore
+
+    - name: ConvosSQLService test
+      run: |
+        cd ConvosSQLService
+        dotnet test --no-build --verbosity normal
+
+    - name: ConvosNoSQLService restore dependencies
+      run: |
+        cd ConvosNoSQLService
+        dotnet restore
+    
+    - name: ConvosNoSQLService build
+      run: |
+        cd ConvosNoSQLService
+        dotnet build --no-restore
+
+    - name: ConvosNoSQLService test
+      run: |
+        cd ConvosNoSQLService
+        dotnet test --no-build --verbosity normal
+
+    - name: APIGateway restore dependencies
+      run: |
+        cd APIGateway
+        dotnet restore
+    
+    - name: APIGateway build
+      run: |
+        cd APIGateway
+        dotnet build --no-restore
+
+    - name: APIGateway test
+      run: |
+        cd APIGateway
+        dotnet test --no-build --verbosity normal
+
+    - name: IdentityService restore dependencies
+      run: |
+        cd IdentityService
+        dotnet restore
+    
+    - name: IdentityService build
+      run: |
+        cd IdentityService
+        dotnet build --no-restore
+
+    - name: IdentityService test
+      run: |
+        cd IdentityService
+        dotnet test --no-build --verbosity normal
+  deploy:
+    name: Deploy to EC2
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 instance
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-54-179-228-229.ap-southeast-1.compute.amazonaws.com << 'EOF'
+            
+            set -e 
+            echo "Install Docker"
+            if ! command -v docker &> /dev/null
+            then
+              echo "Docker not found, installing..."
+              sudo yum update -y
+              sudo yum install -y docker
+              sudo systemctl start docker
+              sudo systemctl enable docker
+            else
+              echo "Docker is already installed."
+            fi
+            echo "Docker Version"
+            docker --version 
+
+
+            echo "Grant current user permission"
+            sudo usermod -aG docker ec2-user
+            newgrp docker
+
+
+            echo "Download Docker Compose Plugin"
+            DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+            mkdir -p $DOCKER_CONFIG/cli-plugins
+            curl -SL https://github.com/docker/compose/releases/download/v2.29.6/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose 
+            chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+            docker compose version
+
+
+            echo "Download Git"
+            if ! command -v git &> /dev/null
+            then
+              echo "Git not found, installing...."
+              sudo yum install -y git
+            else
+              echo "Git is already installed."
+            fi
+            git --version
+
+
+            echo "Build and publish endpoint"
+            mkdir -p ConvosApp
+            cd ConvosApp
+            if [ ! -d "ConvosServices" ]; then
+              git clone https://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@github.com/kztoan01/ConvosServices.git
+            fi          
+            cd ConvosServices/ConvosSQLService
+            git remote set-url origin https://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@github.com/kztoan01/ConvosServices.git
+            git pull
+            docker compose down
+            docker compose build identity-service
+            docker compose build convos-service
+            docker compose build convosnosql-service
+            docker compose build gateway-service
+            docker compose up -d
+
+            
+          EOF
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-54-179-228-229.ap-southeast-1.compute.amazonaws.com << 'EOF'
+            cd ConvosApp/ConvosApp
+            docker compose down
+            docker compose up -d previous
+          EOF

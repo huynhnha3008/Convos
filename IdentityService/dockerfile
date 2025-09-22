@@ -1,0 +1,33 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-jammy-amd64 AS base
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 8080
+EXPOSE 80
+
+# Setting environment variables
+ARG ConnectionString
+ARG Redis
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy-amd64 AS build
+WORKDIR /src
+RUN mkdir Controllers Repositories BusinessObjects Services 
+COPY ["Controllers/Controllers.csproj", "/src/Controllers"]
+COPY ["Services/Services.csproj", "/src/Services"]
+COPY ["Repositories/Repositories.csproj", "/src/Repositories"]
+COPY ["BusinessObjects/BusinessObjects.csproj", "/src/BusinessObjects"]
+RUN dotnet restore "/src/Controllers/Controllers.csproj"
+COPY ["Controllers/", "/src/Controllers"]
+COPY ["Services/", "/src/Services"]
+COPY ["Repositories/", "/src/Repositories"]
+COPY ["BusinessObjects/", "/src/BusinessObjects"]
+
+WORKDIR /src/Controllers
+RUN dotnet build "Controllers.csproj" --configuration Release --runtime linux-x64 -o ./build
+
+FROM build as publish
+WORKDIR /src/Controllers
+RUN dotnet publish "Controllers.csproj" -c Release -o /app/out
+
+FROM base AS final
+COPY --from=publish /app/out .
+	
+ENTRYPOINT ["dotnet", "Controllers.dll"]
